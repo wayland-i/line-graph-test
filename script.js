@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const data = [
         { price: 100, 'date-time': '2022-01-01T12:00:00' },
         { price: 150, 'date-time': '2022-01-02T12:00:00' },
+        { price: 100, 'date-time': '2022-01-01T12:00:00' },
+        { price: 150, 'date-time': '2022-01-02T12:00:00' },
+        { price: 200, 'date-time': '2022-01-03T12:00:00' },
+        { price: 180, 'date-time': '2022-01-04T12:00:00' },
+        { price: 120, 'date-time': '2022-01-05T12:00:00' },
         // Add more data objects as needed
     ];
 
@@ -15,8 +20,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const dates = data.map(entry => new Date(entry['date-time']));
         const prices = data.map(entry => entry.price);
 
+        // Set canvas dimensions based on data length and height
+        canvas.width = dates.length * 40; // Adjust the multiplier as needed
+        canvas.height = getMaxPrice(prices) * 2; // Adjust the multiplier as needed
+
         // Clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Drawing the x-axis
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.stroke();
+
+        // Drawing the y-axis
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, canvas.height);
+        ctx.stroke();
 
         // Drawing the line graph
         ctx.beginPath();
@@ -45,3 +66,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Call the renderGraph function with the sample data
     renderGraph(data);
 });
+
