@@ -19,4 +19,4 @@ This may be achieved by creating 10,000 html divs and then changing the color of
 or
 
 There might be a better way with the d3.js library or other visaulization tools that I could customize to look "pixelated and win 98"
-
+resource on making linegraphs - https://www.youtube.com/results?search_query=how+to+make+a+price+graph+in+js
