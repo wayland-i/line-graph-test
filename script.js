@@ -63,13 +63,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const x = i * (canvas.width / (dates.length - 1));
             const nextX = (i + 1) * (canvas.width / (dates.length - 1));
             const y = canvas.height - (prices[i] * (canvas.height / getMaxPrice(prices)));
-            const nextY = canvas.height - (prices[i + 1] * (canvas.height / getMaxPrice(prices)));
+            const nextY = ((canvas.height - (prices[i] * (canvas.height / getMaxPrice(prices)))) + (canvas.height - (prices[i + 1] * (canvas.height / getMaxPrice(prices))))) / 2;
+
 
             if (i === 0) {
                 ctx.fillRect(x, y, 10, 10)
                 console.log(dates[i])
                 console.log(dates[i + 1])
                 ctx.moveTo(x, y);
+                ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                ctx.lineTo(x, y);
             } else {
                 ctx.fillRect(x, y, 10, 10)
                 ctx.lineTo(x, y);
@@ -77,16 +80,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(prices[i])
                 if (prices[i] < prices[i + 1]) {
                     console.log("going up")
-                    console.log(dates[i])
+                    // console.log(dates[i])
                     const newDate = new Date(dates[i])
                     newDate.setHours(dates[i].getHours() + 1)
-                    console.log(newDate)
+                    // console.log(newDate)
                     let counter = 1
                     for (let j = new Date(dates[i]); j < newDate; j.setMinutes(j.getMinutes() + 1)) {
-                        console.log("j:", j);
+                        // console.log("j:", j);
+                        console.log("y:", y)
+                        nextY
+                        // ctx.fillRect((i + .25) * (canvas.width / (dates.length - 1)), nextY - 50, 10, 10)
+                        ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                        // ctx.fillRect((i + .75) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                        
+                        ctx.lineTo(x, y);
                     }
                 } else if (prices[i] > prices[i + 1]) {
-                    // console.log("going down")
+                    console.log("going down")
+                    console.log("y:", y)
+                    ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                    ctx.lineTo(x, y);
                 } else if (prices[i] == prices [i + 1]){
                     // console.log("price remained the same")
                 }
