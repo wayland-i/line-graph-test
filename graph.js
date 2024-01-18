@@ -85,3 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // notes on how to proceed after graph is properly resizing
 // so now we want to take in our data of price and date objects and plot them on the canvas proportional to the canvas size
 
+// first we want to write a function that handles the data as we recieve it...
+// if the data is 12 dates across the x axis we want that to be shown proportionally there
+// the first price/date is (0, y) the last price date is (canvas.width, y)
+
+// once that data sizes the graph, then we can add all the filler data points
+// the amount of points we add will hopefully be dependent on the canvas size only
+// I think as long as the initial array size is the same each time then ther won't be an issue with the canvas size and filler points
