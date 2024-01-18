@@ -60,3 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 });
+
+
+// notes on how to proceed after graph is properly resizing
+// so now we want to take in our data of price and date objects and plot them on the canvas proportional to the canvas size
