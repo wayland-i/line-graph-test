@@ -87,18 +87,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     let counter = 1
                     for (let j = new Date(dates[i]); j < newDate; j.setMinutes(j.getMinutes() + 1)) {
                         // console.log("j:", j);
-                        console.log("y:", y)
-                        nextY
-                        // ctx.fillRect((i + .25) * (canvas.width / (dates.length - 1)), nextY - 50, 10, 10)
+                        // console.log("y:", y)
+                        
                         ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
-                        // ctx.fillRect((i + .75) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                        ctx.fillRect((i + .6) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
                         
                         ctx.lineTo(x, y);
                     }
                 } else if (prices[i] > prices[i + 1]) {
                     console.log("going down")
                     console.log("y:", y)
-                    ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                    // ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
                     ctx.lineTo(x, y);
                 } else if (prices[i] == prices [i + 1]){
                     // console.log("price remained the same")
@@ -126,5 +125,14 @@ document.addEventListener('DOMContentLoaded', function() {
 //      The function should say: until I get to the next REAL date and price, +1 to price +1hr to date. if (x[i + 1] > x[i] then + for price) else if (x[i + 1] < x[i] then - for price) IF PRICES ARE THE SAME, DO NOT ADD TO PRICE ONLY TO DATE
 //      This function determining how many datapoints should be added should work relative to the users' screen-size/viewport (we can worry about this later)
 //
-// 
+//
+
+// NEW APPROACH
+// First I create the graph based on the data that I recieve
+// The data will then justify the size of the graph
+// then I will alterData = [] and this array will include granular steps between the real points which will also live in the alterData array
+// I will then plot each of those bricks on the chart
+// ONCE DONE: all that needs to be set is the resolution (the number of incremenal data added to alterData) based on the users screen size
+// first I think we want to render a graph that looks good on all screen sizes
+
 
