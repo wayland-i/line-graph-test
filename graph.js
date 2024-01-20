@@ -1,23 +1,24 @@
 const data = [
-    { price: 100, 'date-time': '2022-01-01T12:00:00' },
-    // { price: 110, 'date-time': '2022-01-02T12:00:00' },
-    // { price: 120, 'date-time': '2022-01-03T12:00:00' },
-    // { price: 130, 'date-time': '2022-01-04T12:00:00' },
-    // { price: 140, 'date-time': '2022-01-05T12:00:00' },
+    { price: 100, date: '2022-01-01T12:00:00' },
 
-    { price: 150, 'date-time': '2022-01-06T12:00:00' },
-    { price: 100, 'date-time': '2022-01-07T12:00:00' },
-    { price: 150, 'date-time': '2022-01-08T12:00:00' },
-    { price: 200, 'date-time': '2022-01-09T12:00:00' },
-    { price: 180, 'date-time': '2022-01-10T12:00:00' },
-    { price: 120, 'date-time': '2022-01-11T12:00:00' },
-    { price: 100, 'date-time': '2022-01-12T12:00:00' },
-    { price: 150, 'date-time': '2022-01-13T12:00:00' },
-    { price: 100, 'date-time': '2022-01-14T12:00:00' },
-    { price: 150, 'date-time': '2022-01-15T12:00:00' },
-    { price: 20, 'date-time': '2022-01-16T12:00:00' },
-    { price: 140, 'date-time': '2022-01-17T12:00:00' },
-    { price: 120, 'date-time': '2022-01-18T12:00:00' },
+    // { price: 110, date: '2022-01-02T12:00:00' },
+    // { price: 120, date: '2022-01-03T12:00:00' },
+    // { price: 130, date: '2022-01-04T12:00:00' },
+    // { price: 140, date: '2022-01-05T12:00:00' },
+
+    { price: 150, date: '2022-01-06T12:00:00' },
+    { price: 100, date: '2022-01-07T12:00:00' },
+    { price: 150, date: '2022-01-08T12:00:00' },
+    { price: 200, date: '2022-01-09T12:00:00' },
+    { price: 180, date: '2022-01-10T12:00:00' },
+    { price: 120, date: '2022-01-11T12:00:00' },
+    { price: 100, date: '2022-01-12T12:00:00' },
+    { price: 150, date: '2022-01-13T12:00:00' },
+    { price: 100, date: '2022-01-14T12:00:00' },
+    { price: 150, date: '2022-01-15T12:00:00' },
+    { price: 20, date: '2022-01-16T12:00:00' },
+    { price: 140, date: '2022-01-17T12:00:00' },
+    { price: 120, date: '2022-01-18T12:00:00' },
     // Add more data objects as needed
 ];
 
@@ -27,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set up the origin at the bottom-left corner
     ctx.translate(0.5, canvas.height - 0.5);
+    
+    
 
     // Draw the initial axes
     // drawAxes();
@@ -45,7 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.moveTo(0, 0);
         ctx.lineTo(0, -canvas.height);
         ctx.stroke();
+
+        
     }
+
+    
 
     // Function to dynamically change canvas size based on window width
     function resizeCanvas() {
@@ -59,12 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Medium screens
             setCanvasSize(1000, 650); // Adjust dimensions as needed
             // invoke data function here
+            originalPoints(data)
         } else {
             // Small screens (phones)
             setCanvasSize(700, 400); // Adjust dimensions as needed
             // invoke data function here
         }
     }
+
+    
 
     // Function to set canvas size and redraw content
     function setCanvasSize(width, height) {
@@ -75,6 +85,87 @@ document.addEventListener('DOMContentLoaded', () => {
         // Redraw the axes or any other content as needed
         drawAxes();
     }
+
+    
+
+    function originalPoints(data) {
+        // console.log(data.map((record) => {
+        //     console.log(record.price)
+        // }))
+        let prices = []
+        let dates = []
+        data.map((record) => {
+            prices.push(record.price)
+            dates.push(record.date)
+            // let dates = 
+        })
+        console.log(dates)
+        console.log(prices)
+
+        for (let i = 0; i < dates.length; i++) {
+            const x = i * (canvas.width / (dates.length - 1));
+            const nextX = (i + 1) * (canvas.width / (dates.length - 1));
+            const y = canvas.height - (prices[i] * (canvas.height / getMaxPrice(prices)));
+            const nextY = ((canvas.height - (prices[i] * (canvas.height / getMaxPrice(prices)))) + (canvas.height - (prices[i + 1] * (canvas.height / getMaxPrice(prices))))) / 2;
+        
+
+
+
+            if (i === 0) {
+                ctx.fillRect(x, y, 10, 10)
+                console.log(dates[i])
+                console.log(dates[i + 1])
+                ctx.moveTo(x, y);
+                ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                ctx.lineTo(x, y);
+            } else {
+                ctx.fillRect(x, y, 10, 10)
+                ctx.lineTo(x, y);
+                // if (prices[i])
+                console.log(prices[i])
+                if (prices[i] < prices[i + 1]) {
+                    console.log("going up")
+                    // console.log(dates[i])
+                    const newDate = new Date(dates[i])
+                    newDate.setHours(dates[i].getHours + 1) //deleted '()' after .getHours
+                    // console.log(newDate)
+                    let counter = 1
+                    for (let j = new Date(dates[i]); j < newDate; j.setMinutes(j.getMinutes() + 1)) {
+                        // console.log("j:", j);
+                        // console.log("y:", y)
+                        
+                        ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                        ctx.fillRect((i + .6) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                        
+                        ctx.lineTo(x, y);
+                    }
+                } else if (prices[i] > prices[i + 1]) {
+                    console.log("going down")
+                    console.log("y:", y)
+                    // ctx.fillRect((i + .5) * (canvas.width / (dates.length - 1)), nextY, 10, 10)
+                    ctx.lineTo(x, y);
+                } else if (prices[i] == prices [i + 1]){
+                    // console.log("price remained the same")
+                }
+            }
+
+
+
+
+
+        }
+
+        
+
+
+
+
+    }
+
+    function getMaxPrice(prices) {
+        return Math.max(...prices);
+    }
+
 
     // Call resizeCanvas initially and on window resize
     resizeCanvas();
